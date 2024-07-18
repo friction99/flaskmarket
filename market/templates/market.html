@@ -1,0 +1,60 @@
+{% extends 'base.html' %}
+{% block title %} market {% endblock %}
+{% block content %}
+
+<div class="heading" style="margin-top:20px; margin-left:35px">
+  <h5>WELCOME {{username}}</h4>
+  <h5>You have currently {{ budget }}$</h5>
+</div>
+<div class="row" style="margin-top:20px; margin-left:20px">
+  <div class="col-8">
+    <h2>Available items on the market</h2>
+    <p>Click on one of the items to start buying</p>
+    <table class="table table-hover table-dark">
+      <thead>
+        <tr>
+          <th scope="col">id</th>
+          <th scope="col">name</th>
+          <th scope="col">barcode</th>
+          <th scope="col">price</th>
+          <th scope="col">Options</th>
+        </tr>
+      </thead>
+      <tbody>
+        {% for item in items: %}
+          {% include 'includes/items_modal.html' %}
+          <tr>
+              <td scope="row">{{ item.id }}</th>
+              <td scope="row">{{ item.name }}</td>
+              <td scope="row">{{ item.barcode }}</td>
+              <td scope="row">{{ item.price }}</td>
+              <td scope="row">
+                  <button class="btn btn-info" data-toggle="modal" data-target="#exampleModal-{{ item.id }}">More Info</button>
+                  <button class="btn btn-success" data-toggle="modal" data-target="#Modal-{{ item.id }}">Purchase this item</button>
+              </td>
+          </tr>
+         {% endfor %}
+      </tbody>
+    </table>
+    <a class="btn btn-sm btn-secondary" href="{{ url_for('logout') }}"">LOGOUT</a>
+  </div>
+  <div class="col-4">
+    <h2>Owned Items</h2>
+    <p>Click on sell Item to put an item back on the Market</p>
+    <div class="row">
+        {% for owneditem in ownedItems %}
+          {% include 'includes/sell_modal.html' %}
+          <div class="col-md-6">
+            <div class="card card-dark text-white bg-dark">
+              <div class="card-body">
+                <h5 class="card-title">{{ owneditem.name }}</h5>
+                <p class="card-text">{{ owneditem.price }}</p>
+                  <button class="btn btn-success" data-toggle="modal" data-target="#sellModal-{{ owneditem.id }}"">Sell this item</button>
+              </div>
+            </div>
+          </div>
+        {% endfor %}
+    </div>
+  </div>
+</div>
+{% endblock %}

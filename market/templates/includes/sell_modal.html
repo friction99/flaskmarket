@@ -1,0 +1,28 @@
+<style>
+    .modal-content{
+        background-color: #212121;
+    }
+</style>
+<!-- Modal -->
+{% for owneditem in ownedItems %}
+    <div class="modal fade" id="sellModal-{{ owneditem.id }}" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+            <h5 class="modal-title" id="exampleModalLabel">{{ owneditem.name }}</h5>
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+            </button>
+            </div>
+            <div class="modal-body">
+                <h5>Are you sure you want to sell {{ owneditem.name }} for {{ owneditem.price }}$ ?</h5>
+                <h6>Clicking on Sell will increase your purse but you wont be the owner</h6>
+                <form method="post">
+                    <input id="sold_item" name="sold_item" value="{{ owneditem.id }}" type="hidden"/>
+                    <button type="submit" class="btn btn-success btn-block">Sell</button>
+                </form>
+            </div>
+        </div>
+        </div>
+    </div>
+{% endfor %}
